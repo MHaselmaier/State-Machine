@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fsm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<states>
+		<parallel name="Uhr">
+			<composed name="Display" first="zeige Zeit">
+				<state name="zeige Zeit" />
+				<composed name="Zeiteinstellung" first="Minute Zeit">
+					<state name="Minute Zeit" />
+					<state name="Stunde Zeit" />
+				</composed>
+
+				<state name="zeige Weckzeit" />
+				<composed name="Weckzeiteinstellung" first="Minute Weckzeit">
+					<state name="Minute Weckzeit" />
+					<state name="Stunde Weckzeit" />
+				</composed>
+			</composed>
+			<composed name="Alarm" first="still">
+				<state name="still" />
+				<state name="piepen" />
+			</composed>		
+		</parallel>
+	</states>
+	
+	<transitions>
+		<transition source="still" target="piepen" event="Weckzeit erreicht" />
+		<transition source="piepen" target="still" event="D" action="clock.action.StoppPiep" />
+		
+		<transition source="zeige Zeit" target="Zeiteinstellung" event="C" action="clock.action.EinstellenZeit" />
+		<transition source="zeige Zeit" target="zeige Weckzeit" event="A" action="clock.action.ZeigeWeckzeit" />
+		<transition source="zeige Weckzeit" target="Weckzeiteinstellung" event="C" action="clock.action.EinstellenWeckzeit" />
+		<transition source="zeige Weckzeit" target="zeige Zeit" event="B" action="clock.action.ZeigeZeit" />
+		
+		<transition source="Zeiteinstellung" target="zeige Zeit" event="B" action="clock.action.EinstellenAbbrechenZeit" />
+		<transition source="Minute Zeit" target="Minute Zeit" event="hoch" action="clock.action.ZeitMinuteHoch" />
+		<transition source="Minute Zeit" target="Minute Zeit" event="runter" action="clock.action.ZeitMinuteRunter" />
+		<transition source="Minute Zeit" target="Stunde Zeit" event="C" />
+		<transition source="Stunde Zeit" target="Stunde Zeit" event="hoch" action="clock.action.ZeitStundeHoch" />
+		<transition source="Stunde Zeit" target="Stunde Zeit" event="runter" action="clock.action.ZeitStundeRunter" />
+		<transition source="Stunde Zeit" target="zeige Zeit" event="C" action="clock.action.EinstellenSpeichernZeit"/>
+		
+		<transition source="Weckzeiteinstellung" target="zeige Weckzeit" event="B" action="clock.action.EinstellenAbbrechenWeckzeit" />
+		<transition source="Minute Weckzeit" target="Minute Weckzeit" event="hoch" action="clock.action.WeckzeitMinuteHoch" />
+		<transition source="Minute Weckzeit" target="Minute Weckzeit" event="runter" action="clock.action.WeckzeitMinuteRunter" />
+		<transition source="Minute Weckzeit" target="Stunde Weckzeit" event="C" />
+		<transition source="Stunde Weckzeit" target="Stunde Weckzeit" event="hoch" action="clock.action.WeckzeitStundeHoch" />
+		<transition source="Stunde Weckzeit" target="Stunde Weckzeit" event="runter" action="clock.action.WeckzeitStundeRunter" />
+		<transition source="Stunde Weckzeit" target="zeige Weckzeit" event="C" />
+	</transitions>
+	
+	<startState name="Uhr" />
+</fsm>

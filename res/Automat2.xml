@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fsm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<states>
+		<state name="s" /> <!-- entryaction="framework.action.EntryS" exitaction="framework.action.ExitS" /> -->
+		<state name="q1" /> <!-- entryaction="framework.action.EntryQ1" exitaction="framework.action.ExitQ1" /> -->
+		<state name="q2" /> <!-- entryaction="framework.action.EntryQ2" exitaction="framework.action.ExitQ2" /> -->
+		<state name="r1" /> <!-- entryaction="framework.action.EntryR2" exitaction="framework.action.ExitR1" /> -->
+		<state name="r2" /> <!-- entryaction="framework.action.EntryR2" exitaction="framework.action.ExitR2" /> -->
+	</states>
+	
+	<transitions>
+		<transition source="s" target="q1" event="a" /> <!-- action="framework.action.ToQ1FromS" /> -->
+		<transition source="s" target="r1" event="b" /> <!-- action="framework.action.ToR1FromS" /> -->
+		<transition source="q1" target="q1" event="a" /> <!-- action="framework.action.ToQ1FromQ1" /> -->
+		<transition source="q1" target="q2" event="b" /> <!-- action="framework.action.ToQ2FromQ1" /> -->
+		<transition source="q2" target="q1" event="a" /> <!-- action="framework.action.ToQ1FromQ2" /> -->
+		<transition source="q2" target="q2" event="b" /> <!-- action="framework.action.ToQ2FromQ2" /> -->
+		<transition source="r1" target="r1" event="b" /> <!-- action="framework.action.ToR1FromR1" /> -->
+		<transition source="r1" target="r2" event="a" /> <!-- action="framework.action.ToR2FromR1" /> -->
+		<transition source="r2" target="r1" event="b" /> <!-- action="framework.action.ToR1FromR2" /> -->
+		<transition source="r2" target="r2" event="a" /> <!-- action="framework.action.ToR2FromR2" /> -->
+	</transitions>
+	
+	<startState name="s" />
+	<endState name="q1" />
+	<endState name="r1" />
+</fsm>

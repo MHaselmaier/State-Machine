@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fsm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<states>
+		<state name="q1" entryaction="framework.action.EntryQ1" exitaction="framework.action.ExitQ1" />
+		<state name="q2" entryaction="framework.action.EntryQ2" exitaction="framework.action.ExitQ2" />
+	</states>
+	
+	<transitions>
+		<transition source="q1" target="q1" event="0" action="framework.action.ToQ1FromQ1" />
+		<transition source="q1" target="q2" event="1" action="framework.action.ToQ2FromQ1" />
+		<transition source="q2" target="q1" event="0" action="framework.action.ToQ1FromQ2" />
+		<transition source="q2" target="q2" event="1" action="framework.action.ToQ2FromQ2" />
+	</transitions>
+	
+	<startState name="q1" />
+	<endState name="q1" />
+</fsm>
